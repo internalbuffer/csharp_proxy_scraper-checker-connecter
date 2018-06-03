@@ -131,7 +131,7 @@ namespace Proxy
             string[] urls = new string[] { "https://free-proxy-list.net/", "https://www.sslproxies.org/", "https://www.vpngids.nl/artikel/lijst-met-gratis-proxy-servers/" };
             try
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var result = client.DownloadString(urls[i]);
                     if (i == 2)
