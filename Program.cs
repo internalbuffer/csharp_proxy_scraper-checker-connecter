@@ -128,33 +128,21 @@ namespace Proxy
             WebClient client = new WebClient();
             int counter = 0;
             var sProxys = "";
-            string[] urls = new string[] { "https://free-proxy-list.net/", "https://www.sslproxies.org/", "https://www.vpngids.nl/artikel/lijst-met-gratis-proxy-servers/" };
+            string[] urls = new string[] { "https://free-proxy-list.net/", "https://www.sslproxies.org/"};
             try
             {
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     var result = client.DownloadString(urls[i]);
-                    if (i == 2)
+                    foreach (Match m in Regex.Matches(result, "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}</td><td>[0-9]{1,5}"))
                     {
-                        foreach (Match m in Regex.Matches(result, "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}</td><td align=\"center\">[0-9]{1,5}"))
-                        {
-                            counter++;
-                            sProxys += m + "\n";
+                        counter++;
+                        sProxys += m + "\n";
 
-                            sProxys = sProxys.Replace("</td><td align=\"center\">", ":");
-                        }
+                        sProxys = sProxys.Replace("</td><td>", ":");
                     }
-                    else
-                    {
-                        foreach (Match m in Regex.Matches(result, "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}</td><td>[0-9]{1,5}"))
-                        {
-                            counter++;
-                            sProxys += m + "\n";
 
-                            sProxys = sProxys.Replace("</td><td>", ":");
-                        }
-                    }
-                    
+
 
                     Console.Write(sProxys);
                 }
